@@ -23,3 +23,4 @@ Some simple examples to get you started:
     $imagine = new Imagine();
     $imagine->output('path/to/my/image.jpg')->send();
 ```
+
