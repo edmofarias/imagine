@@ -11,7 +11,7 @@ First make sure you have either GD installed and enabled on your PHP server.
 
 Supports formats
  * JPEG (.jpe, .jpeg, .jpg, .jfif)
- * PNG  (.png)
+ * PNG  (.png, .x-png)
 
 You can add Imagine to your project easily through composer:
 
@@ -55,6 +55,25 @@ Some simple examples to get you started:
     
     $filters = new ArrayCollection();
     $filters->add($imageResizeFilter);
+
+    $imagine = new Imagine();
+    $imagine->output('path/to/my/image.jpg', $filters)->send();
+```
+
+##### Filter Flip Image
+
+```php
+    /**
+     * @param $mode
+     
+     * IMG_FLIP_HORIZONTAL Flips the image horizontally. 
+     * IMG_FLIP_VERTICAL   Flips the image vertically. 
+     * IMG_FLIP_BOTH 	   Flips the image both horizontally and vertically. 
+     */
+    $imageFlipFilter = new ImageFlipFilter(IMG_FLIP_HORIZONTAL);
+    
+    $filters = new ArrayCollection();
+    $filters->add($imageFlipFilter);
 
     $imagine = new Imagine();
     $imagine->output('path/to/my/image.jpg', $filters)->send();
