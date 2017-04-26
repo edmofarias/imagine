@@ -89,7 +89,8 @@ class ImageLoadFile implements ImageLoadFileInterface
             self::EXTENSION_JPE,
             self::EXTENSION_JPEG,
             self::EXTENSION_JPG,
-            self::EXTENSION_JFIF
+            self::EXTENSION_JFIF,
+            self::EXTENSION_PNG,
         ];
 
         if (!in_array($extension, $allowed)) {
@@ -106,7 +107,8 @@ class ImageLoadFile implements ImageLoadFileInterface
         $mime = mime_content_type($this->path);
 
         $allowed = [
-            self::MIME_TYPE_JPEG
+            self::MIME_TYPE_JPEG,
+            self::MIME_TYPE_PNG,
         ];
 
         if (!in_array($mime, $allowed)) {

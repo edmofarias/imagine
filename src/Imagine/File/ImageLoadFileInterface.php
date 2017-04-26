@@ -29,10 +29,20 @@ interface ImageLoadFileInterface
     const EXTENSION_JFIF = 'jfif';
 
     /**
+     * Extension PNG .png
+     */
+    const EXTENSION_PNG = 'png';
+
+    /**
      * Mime Type JPEG (.jpe, .jpeg, .jpg, .jfif)
      */
     const MIME_TYPE_JPEG = 'image/jpeg';
-    
+
+    /**
+     * Mime Type JPEG (.jpe, .jpeg, .jpg, .jfif)
+     */
+    const MIME_TYPE_PNG = 'image/png';
+
     /**
      * @return ImageFileInterface
      */

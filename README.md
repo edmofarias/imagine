@@ -9,6 +9,10 @@ Imagine requires PHP >= 7.0 and extensions for PHP **GD**.
 ## Installation
 First make sure you have either GD installed and enabled on your PHP server.
 
+Supports formats
+ * JPEG (.jpe, .jpeg, .jpg, .jfif)
+ * PNG  (.png)
+
 You can add Imagine to your project easily through composer:
 
 ```bash

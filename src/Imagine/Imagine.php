@@ -5,6 +5,7 @@ namespace Imagine;
 use Doctrine\Common\Collections\ArrayCollection;
 use Imagine\Context\ImageContextInterface;
 use Imagine\Context\ImageJpegContext;
+use Imagine\Context\ImagePngContext;
 use Imagine\Exception\ImagineContextNotImplementedException;
 use Imagine\File\ImageFileInterface;
 use Imagine\File\ImageLoadFile;
@@ -40,6 +41,7 @@ class Imagine
          * @var ImageContextInterface $context
          *
          * JPEG Image (.jpe, .jpeg, .jpg, .jfif) - ImageJpegContext
+         * PNG Image (.png) - ImagePngContext
          */
         $context = $this->doCallContext($imageLoadFile);
 
@@ -74,7 +76,8 @@ class Imagine
     private function getContext(string $mime)
     {
         $resources = [
-            ImageLoadFileInterface::MIME_TYPE_JPEG =>  ImageJpegContext::class
+            ImageLoadFileInterface::MIME_TYPE_JPEG =>  ImageJpegContext::class,
+            ImageLoadFileInterface::MIME_TYPE_PNG =>  ImagePngContext::class
         ];
 
         if (!array_key_exists($mime, $resources)) {
