@@ -2,10 +2,12 @@
 
 namespace Imagine;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Imagine\Exception\ResourceNotFoundException;
-use Imagine\Resource\ImageContextResource;
-use Imagine\Resource\ImageJpegResource;
+use Imagine\Context\ImageContextInterface;
+use Imagine\Context\ImageJpegContext;
+use Imagine\Exception\ImagineContextNotImplementedException;
+use Imagine\File\ImageFileInterface;
+use Imagine\File\ImageLoadFile;
+use Imagine\File\ImageLoadFileInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -14,28 +16,71 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class Imagine
 {
+    const IMAGE_QUALITY_LOW        = 10;
+    const IMAGE_QUALITY_MEDIUM     = 30;
+    const IMAGE_QUALITY_HIGH       = 60;
+    const IMAGE_QUALITY_VERY_HIGH  = 80;
+    const IMAGE_QUALITY_MAXIMUM    = 100;
+
     /**
-     * @param ImageFileInterface $image
-     * @param $quality
-     * @param ArrayCollection|null $filters
-     * @param bool $download
-     *
+     * @param string $path
+     * @param int $quality
      * @return Response
-     * @throws ResourceNotFoundException
      */
-    public function output(ImageFileInterface $image, $quality, ArrayCollection $filters = null, $download = false)
+    public function output(string $path, int $quality = self::IMAGE_QUALITY_MEDIUM)
     {
-        $context = null;
+        /**
+         * @var ImageLoadFileInterface $imageLoadFile
+         */
+        $imageLoadFile = new ImageLoadFile($path);
+        $imageFile = $imageLoadFile->getImage();
 
-        if (ImageJpegResource::MIME_TYPE_JPEG === $image->getMimeType()) {
-            $context = new ImageContextResource(new ImageJpegResource($image));
+        /**
+         * @var ImageContextInterface $context
+         *
+         * JPEG Image (.jpe, .jpeg, .jpg, .jfif) - ImageJpegContext
+         */
+        $context = $this->doCallContext($imageLoadFile);
+
+        return $context->render($imageFile, $quality);
+    }
+
+    /**
+     * @param ImageLoadFileInterface $imageLoadFile
+     * @return ImageContextInterface
+     * @throws ImagineContextNotImplementedException
+     */
+    private function doCallContext(ImageLoadFileInterface $imageLoadFile)
+    {
+        /**
+         * @var ImageFileInterface $image
+         */
+        $imageFile = $imageLoadFile->getImage();
+
+        /**
+         * @var string $context Namespace class
+         */
+        $context = $this->getContext($imageFile->getMime());
+
+        return new $context();
+    }
+
+    /**
+     * @param string $mime
+     * @return string
+     * @throws ImagineContextNotImplementedException
+     */
+    private function getContext(string $mime)
+    {
+        $resources = [
+            ImageLoadFileInterface::MIME_TYPE_JPEG =>  ImageJpegContext::class
+        ];
+
+        if (!array_key_exists($mime, $resources)) {
+            $message = 'Resource not implemented for mime type %s';
+            throw new ImagineContextNotImplementedException(sprintf('$message', $mime));
         }
 
-        if (!$context) {
-            throw new ResourceNotFoundException(sprintf('Implementation not found for Mime Type %s', $image->getMimeType()));
-        }
-
-        return $context->output($quality, $filters , $download);
-
+        return $resources[$mime];
     }
 }
