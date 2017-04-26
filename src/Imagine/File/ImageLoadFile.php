@@ -91,6 +91,7 @@ class ImageLoadFile implements ImageLoadFileInterface
             self::EXTENSION_JPG,
             self::EXTENSION_JFIF,
             self::EXTENSION_PNG,
+            self::EXTENSION_XPNG,
         ];
 
         if (!in_array($extension, $allowed)) {

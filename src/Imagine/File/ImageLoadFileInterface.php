@@ -34,12 +34,17 @@ interface ImageLoadFileInterface
     const EXTENSION_PNG = 'png';
 
     /**
+     * Extension PNG .x-png
+     */
+    const EXTENSION_XPNG = 'x-png';
+
+    /**
      * Mime Type JPEG (.jpe, .jpeg, .jpg, .jfif)
      */
     const MIME_TYPE_JPEG = 'image/jpeg';
 
     /**
-     * Mime Type JPEG (.jpe, .jpeg, .jpg, .jfif)
+     * Mime Type PNG (.png, .x-png)
      */
     const MIME_TYPE_PNG = 'image/png';
 
