@@ -2,6 +2,9 @@
 
 namespace Imagine\Context;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Imagine\Filter\ImageFilterHandle;
+use Imagine\Filter\ImageFilterHandleInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -10,6 +13,19 @@ use Symfony\Component\HttpFoundation\Response;
  */
 abstract class AbstractImageContext
 {
+    /**
+     * @var ImageFilterHandleInterface
+     */
+    protected $imageFilterHandle;
+
+    /**
+     * AbstractImageContext constructor.
+     */
+    public function __construct()
+    {
+        $this->imageFilterHandle = new ImageFilterHandle();
+    }
+
     /**
      * @param $image
      * @param $filename
@@ -26,5 +42,13 @@ abstract class AbstractImageContext
         ];
 
         return new Response($image, 200, $headers);
+    }
+
+    /**
+     * @return ImageFilterHandleInterface
+     */
+    protected function getFilterHandle()
+    {
+        return $this->imageFilterHandle;
     }
 }

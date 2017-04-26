@@ -2,6 +2,7 @@
 
 namespace Imagine;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Imagine\Context\ImageContextInterface;
 use Imagine\Context\ImageJpegContext;
 use Imagine\Exception\ImagineContextNotImplementedException;
@@ -27,7 +28,7 @@ class Imagine
      * @param int $quality
      * @return Response
      */
-    public function output(string $path, int $quality = self::IMAGE_QUALITY_MEDIUM)
+    public function output(string $path, ArrayCollection $filters = null, int $quality = self::IMAGE_QUALITY_HIGH)
     {
         /**
          * @var ImageLoadFileInterface $imageLoadFile
@@ -42,7 +43,7 @@ class Imagine
          */
         $context = $this->doCallContext($imageLoadFile);
 
-        return $context->render($imageFile, $quality);
+        return $context->render($imageFile, $filters, $quality);
     }
 
     /**

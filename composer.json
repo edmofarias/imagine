@@ -1,5 +1,6 @@
 {
     "name": "siritec/imagine",
+    "description": "Library for Image manipulation in PHP",
     "authors": [
         {
             "name": "valter",
