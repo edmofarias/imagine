@@ -4,7 +4,6 @@ namespace Imagine\Context;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Imagine\File\ImageFileInterface;
-use Imagine\Filter\ImageFilterHandle;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -15,7 +14,8 @@ class ImageJpegContext extends AbstractImageContext implements ImageContextInter
 {
     /**
      * @param ImageFileInterface $imageFile
-     * @param $quality
+     * @param ArrayCollection|null $filters
+     * @param int $quality
      * @return Response
      */
     public function render(ImageFileInterface $imageFile, ArrayCollection $filters = null, int $quality)

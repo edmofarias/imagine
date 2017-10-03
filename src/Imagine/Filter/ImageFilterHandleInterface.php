@@ -1,6 +1,7 @@
 <?php
 
 namespace Imagine\Filter;
+
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**

@@ -76,13 +76,13 @@ class Imagine
     private function getContext(string $mime)
     {
         $resources = [
-            ImageLoadFileInterface::MIME_TYPE_JPEG =>  ImageJpegContext::class,
-            ImageLoadFileInterface::MIME_TYPE_PNG =>  ImagePngContext::class
+            ImageLoadFileInterface::MIME_TYPE_JPEG => ImageJpegContext::class,
+            ImageLoadFileInterface::MIME_TYPE_PNG => ImagePngContext::class
         ];
 
         if (!array_key_exists($mime, $resources)) {
             $message = 'Resource not implemented for mime type %s';
-            throw new ImagineContextNotImplementedException(sprintf('$message', $mime));
+            throw new ImagineContextNotImplementedException(sprintf($message, $mime));
         }
 
         return $resources[$mime];

@@ -2,7 +2,6 @@
 
 namespace Imagine\Context;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Imagine\Filter\ImageFilterHandle;
 use Imagine\Filter\ImageFilterHandleInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,9 +28,7 @@ abstract class AbstractImageContext
     /**
      * @param $image
      * @param $filename
-     * @param $mimeType
-     * @param bool $download
-     *
+     * @param $mime
      * @return Response
      */
     protected function response($image, $filename, $mime)

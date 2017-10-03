@@ -78,7 +78,6 @@ class ImageLoadFile implements ImageLoadFileInterface
     }
 
     /**
-     * @param $realpath
      * @throws ImagineExtensionNotAllowedException
      */
     private function checkExtensionAllowed()
@@ -100,7 +99,6 @@ class ImageLoadFile implements ImageLoadFileInterface
     }
 
     /**
-     * @param $realpath
      * @throws ImagineMimeTypeNotAllowedException
      */
     private function checkMimeTypeAllowed()
